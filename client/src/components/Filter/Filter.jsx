@@ -54,7 +54,11 @@ function Filtercomponet() {
           <label htmlFor="bedroom">Bedroom</label>
           <input type="text" id="bedroom" name="bedroom" placeholder="any" />
         </div>
-        <Limebutton item={"🔍"} />
+        <div className="item h-20">
+          <label htmlFor="bedroom">&nbsp;</label>
+          <Limebutton item={"search 🔎"}  />
+        </div>
+       
       </div>
     </div>
   );
