@@ -1,3 +1,47 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+body{
+  background-color: black;
+  
+}
+
+/* 
+.custom-scrollbar::-webkit-scrollbar {
+  display: none;
+ } */
+ .custom-scrollbar::-webkit-scrollbar {
+  width: 5px; /* Width of vertical scrollbar */
+
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: none; /* Color of scrollbar track */
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background:whitesmoke; /* Color of scrollbar handle */
+}
+
+
+ 
+ /* Define custom scrollbar styles */
+ .cus-scrollbar::-webkit-scrollbar {
+   width: 5px; /* Width of vertical scrollbar */
+ }
+ 
+ /* Track */
+ .cus-scrollbar::-webkit-scrollbar-track {
+   background: #141313; /* Color of scrollbar track */
+ }
+ 
+ /* Handle */
+ .cus-scrollbar::-webkit-scrollbar-thumb {
+   background:whitesmoke; /* Color of scrollbar handle */
+ }
+ 
+ /* Handle on hover */
+ .cus-scrollbar::-webkit-scrollbar-thumb:hover {
+   background: white /* Color of scrollbar handle on hover */
+ }
+ 

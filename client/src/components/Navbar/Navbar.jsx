@@ -2,14 +2,14 @@
 
 import React, { useContext } from "react";
 import { Menu, X } from "lucide-react";
-import Limebutton from "./button/Button";
-import { AuthContext } from "../context/AuthContext";
+import Limebutton from "../button/Button.jsx";
 import axios from "axios";
-import logo from "../assets/logo.png";
+import logo from "../../assets/images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import {usenotificationstore} from "../lib/notification.Store.js"
+import { usenotificationstore } from "../../lib/notification.Store.js";
 
-import userimage from "../assets/userimage.jpg";
+import userimage from "../../assets/images/userimage.jpg";
+import { AuthContext } from "../../context/AuthContext.jsx";
 
 const menuItems = [
   {
@@ -30,6 +30,21 @@ const menuItems = [
   },
 ];
 
+const loggedItems = [
+  {
+    name: "Home",
+    href: "/",
+  },
+  {
+    name: "view ",
+    href: "/list",
+  },
+  {
+    name: "messages",
+    href: "/profile",
+  },
+];
+
 export default function Navbar() {
   const { currentUser, updateUser } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -38,7 +53,7 @@ export default function Navbar() {
   const number = usenotificationstore((state) => state.number);
 
   if (currentUser) fetch();
-  console.log(number,"njnanan number");
+  console.log(number, "njnanan number");
 
   const handleLogout = async () => {
     try {
@@ -71,19 +86,35 @@ export default function Navbar() {
             Realesto
           </a>
         </div>
+
         <div className="hidden grow items-start lg:flex">
-          <ul className="ml-12 inline-flex space-x-9">
-            {menuItems.map((item) => (
-              <li key={item.name}>
-                <Link
-                  to={item.href}
-                  className="text-md font-semibold hover:text-lime-500"
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {currentUser ? (
+            <ul className="ml-12 inline-flex space-x-9">
+              {loggedItems.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    to={item.href}
+                    className="text-md font-semibold hover:text-lime-500"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <ul className="ml-12 inline-flex space-x-9">
+              {menuItems.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    to={item.href}
+                    className="text-md font-semibold hover:text-lime-500"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div className="hidden lg:flex gap-4 h-full align-middle justify-center">
@@ -99,11 +130,15 @@ export default function Navbar() {
               <span className="mx-3 mt-2">{currentUser.username}</span>
               <div className="gap-4 flex">
                 <div className="flex">
-                        <Limebutton
+                  <Limebutton
                     item={"Profile"}
                     onclick={() => navigate("/profile")}
                   />
-                 {number >0 && <div className="w-5 h-5 text-center rounded shadow-lg shadow-lime-500 bg-rose-500 text-black font-bold relative right-2">{number}</div>} 
+                  {number > 0 && (
+                    <div className="w-5 h-5 text-center rounded shadow-lg shadow-lime-500 bg-rose-500 text-black font-bold relative right-2">
+                      {number}
+                    </div>
+                  )}
                 </div>
                 <Limebutton item={"👉 Logout"} onclick={handleLogout} />
               </div>
@@ -122,7 +157,7 @@ export default function Navbar() {
                 <div className="flex items-center justify-between">
                   <div className="inline-flex items-center space-x-2">
                     <span>
-                      <img src={logo} className="w-8" alt="" />
+                      <img src={logo} className="w-8 filter invert" alt="" />
                     </span>
                     <span className="font-bold">Realesto</span>
                   </div>
@@ -138,19 +173,35 @@ export default function Navbar() {
                   </div>
                 </div>
                 <div className="mt-6">
-                  <nav className="grid gap-y-4">
-                    {menuItems.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className="-m-3 flex items-center rounded-md p-3 text-sm font-semibold hover:bg-gray-50 hover:text-black"
-                      >
-                        <span className="ml-3 text-base font-medium ">
-                          {item.name}
-                        </span>
-                      </a>
-                    ))}
-                  </nav>
+                  {currentUser ? (
+                    <nav className="grid gap-y-4">
+                      {loggedItems.map((item) => (
+                        <a
+                          key={item.name}
+                          href={item.href}
+                          className="-m-3 flex items-center rounded-md p-3 text-sm font-semibold hover:bg-gray-50 hover:text-black"
+                        >
+                          <span className="ml-3 text-base font-medium ">
+                            {item.name}
+                          </span>
+                        </a>
+                      ))}
+                    </nav>
+                  ) : (
+                    <nav className="grid gap-y-4">
+                      {menuItems.map((item) => (
+                        <a
+                          key={item.name}
+                          href={item.href}
+                          className="-m-3 flex items-center rounded-md p-3 text-sm font-semibold hover:bg-gray-50 hover:text-black"
+                        >
+                          <span className="ml-3 text-base font-medium ">
+                            {item.name}
+                          </span>
+                        </a>
+                      ))}
+                    </nav>
+                  )}
                 </div>
                 <button
                   type="button"

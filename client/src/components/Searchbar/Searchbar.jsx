@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./searchBar.scss";
-import searchicon from "../../assets/search.png";
+import searchicon from "../../assets/images/search.png";
 import { Link } from "react-router-dom";
 
 

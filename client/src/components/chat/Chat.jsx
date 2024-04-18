@@ -1,6 +1,6 @@
 import { useContext, useDebugValue, useRef, useState } from "react";
 import "./chat.scss";
-import userimage from "../../assets/userimage.jpg";
+import userimage from "../../assets/images/userimage.jpg";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import { format } from "timeago.js";
@@ -8,7 +8,6 @@ import { SocketContext } from "../../context/SocketContext";
 import { data } from "autoprefixer";
 import { useEffect } from "react";
 import { usenotificationstore } from "../../lib/notification.Store";
-import { DragCloseDrawerExample } from "../modal/Modal";
 import Limebutton from "../button/Button";
 
 function Chat({ chats }) {
@@ -100,33 +99,36 @@ function Chat({ chats }) {
     <div className="chat px-[3vw]">
       <div className="messages custom-scrollbar">
         <h1 className="text-white font-bold text-2xl">Messages</h1>
-        {chats.map((chat) => (
-          <div
-            className={` message  ${
-              chat.seenBy.includes(currentUser.id)
-              ? "bg-[#081003]"
-              : "bg-[#0E310E]"
-            }`}
-            key={chat.id}
-            onClick={() => handleopenmessage(chat.id, chat.reciever)}
-          >
-            <img
-              src={chat.reciever.avatar ? chat.reciever.avatar : userimage}
-              alt=""
-            />
-            <span>{chat.reciever.username}</span>
-            <p
-              style={{
-                color: chat.seenBy.includes(currentUser.id)
-                  ? "#78807a font-weight: bold"
-                  : "whitesmoke",
-              }}
+        {chats.length === 0 && <p className="text-white">No messages</p>}
+        {chats.length > 0 &&
+          chats.map((chat) => (
+            <div
+              className={`message ${
+                chat.seenBy.includes(currentUser.id)
+                  ? "bg-[#c]"
+                  : "bg-[#0E310E]"
+              }`}
+              key={chat.id}
+              onClick={() => handleopenmessage(chat.id, chat.reciever)}
             >
-              {chat.lastMessage}
-            </p>
-          </div>
-        ))}
+              <img
+                src={chat.reciever.avatar ? chat.reciever.avatar : userimage}
+                alt=""
+              />
+              <span>{chat.reciever.username}</span>
+              <p
+                style={{
+                  color: chat.seenBy.includes(currentUser.id)
+                    ? "#78807a font-weight: bold"
+                    : "whitesmoke",
+                }}
+              >
+                {chat.lastMessage}
+              </p>
+            </div>
+          ))}
       </div>
+
       {message && (
         <div className="chatBox">
           <div className="top  border-b-2 border-black">
