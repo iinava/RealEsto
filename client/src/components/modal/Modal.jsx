@@ -47,6 +47,7 @@ export default function Chatmodal(reciverid) {
         console.log(messagingResponse.data);
         setIsLoading(false);
         closeModal()
+        navigate('/profile')
       } else {
         console.log("No chat ID received");
         setIsLoading(false);
